@@ -30,7 +30,7 @@ console.log(out); // [0, 0, 1]
 ```
 In this example, the input integer is 4, which has a binary representation of 100. The output array out is initialized as [0, 0, 0] to hold the individual bits of the input integer.
 
-The loop then iterates over each bit position from the least significant bit to the most significant bit. In the first iteration, the expression (in >> i) & 1 evaluates to (4 >> 0) [&](#-&-operation) 1, which is equal to 0 & 1 = 0. This value is then stored in the first element of the out array using the <-- operator.
+The loop then iterates over each bit position from the least significant bit to the most significant bit. In the first iteration, the expression (in >> i) & 1 evaluates to (4 >> 0) & 1, which is equal to 0 & 1 = 0. This value is then stored in the first element of the out array using the <-- operator.
 
 In the second iteration, the expression (in >> i) & 1 evaluates to (4 >> 1) & 1, which is equal to 1 & 1 = 1. This value is then stored in the second element of the out array using the <-- operator.
 
