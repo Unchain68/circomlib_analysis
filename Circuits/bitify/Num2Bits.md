@@ -4,7 +4,7 @@ The Num2Bits(n) template takes a single input parameter n, which is used to dete
 
 The code then initializes two variables, lc1 and e2, which are used to perform the binary conversion. The e2 variable is initialized to 1 and is doubled in each iteration of the loop, while lc1 is initially set to 0 and is used to accumulate the value of the binary representation.
 
-The loop then iterates over each bit in the binary representation, from the least significant bit to the most significant bit. In each iteration, the corresponding bit of the input integer is extracted and stored in the corresponding element of the output signal, using the expression out[i] <-- (in >> i) [&](#-&-operation) 1. This expression shifts the input integer right by i bits and then performs a bitwise AND with 1, effectively extracting the ith bit of the input integer.
+The loop then iterates over each bit in the binary representation, from the least significant bit to the most significant bit. In each iteration, the corresponding bit of the input integer is extracted and stored in the corresponding element of the output signal, using the expression out[i] <-- (in >> i) [&](#&-operation) 1. This expression shifts the input integer right by i bits and then performs a bitwise AND with 1, effectively extracting the ith bit of the input integer.
 
 The expression out[i] * (out[i] -1 ) === 0 checks that each output bit is either 0 or 1, ensuring that the binary representation is valid.
 
