@@ -1,19 +1,74 @@
 # How does it work
 
-The Num2BitsNeg template is defined with a single parameter n, which specifies the number of bits in the output array.
-The template defines an input signal in, which represents the input integer value, and an array of output signals out, which represent the binary bits of the input value.
-A variable lc1 is initialized to 0.
-A component isZero is declared but not yet instantiated.
-A variable neg is calculated as the two's complement of the input value if it is negative. If the input value is positive or zero, neg is simply set to 0.
-A loop is used to iterate over each bit in the output array.
-For each bit, the loop extracts the corresponding bit from the neg value and stores it in the out array using the expression out[i] <-- (neg >> i) & 1.
-The loop also checks that each out[i] signal is either 0 or 1 using the expression out[i] * (out[i] -1 ) === 0. This ensures that the output signals are binary signals, meaning that they can only take on the values 0 or 1.
-The lc1 variable is updated for each out[i] signal using the expression lc1 += out[i] * 2**i. This calculates the integer value of the binary representation.
-The in signal is connected to the in signal of the isZero component using the expression in ==> isZero.in. This component checks if the input value is zero.
-The isZero component has an output signal out that is true if the input value is zero, and false otherwise.
-The final expression lc1 + isZero.out * 2**n === 2**n - in checks that the output value is correct. If the input value is zero, the output value should be zero. If the input value is negative, the output value should be the two's complement binary representation of the input value. If the input value is positive, the output value should be the binary representation of the input value.
-Here's an example of how you could use the Num2BitsNeg template in a Circom circuit:
+
 
 ```
+template Num2BitsNeg(n) {
+    signal input in;
+    signal output out[n];
+    var lc1 = 0;
+
+    component isZero;
+
+    isZero = IsZero();
+
+    var neg = in < 0 ? 2**n + in : in;
+
+    for (var i = 0; i < n; i++) {
+        out[i] <-- (neg >> i) & 1;
+        out[i] * (out[i] - 1) === 0;
+        lc1 += out[i] * 2**i;
+    }
+
+    in ==> isZero.in;
+
+    lc1 + isZero.out * 2**n === (in < 0 ? 2**n + in : in);
+}
+```
+If the input signal is set to -42 and n is set to 8, the Num2BitsNeg circuit will output the two's complement binary representation of -42 using 8 bits: 11010110.
+
+1. To obtain this result, the following steps are taken by the Num2BitsNeg circuit:
+
+2. The in signal is checked to determine whether it is negative. Since -42 is negative, the condition in < 0 is true.
+
+3. The variable neg is computed using the formula 2**n + in, which in this case gives 2**8 - 42 = 214.
+
+4. The for loop iterates over the n bits of the output array out, starting with the least significant bit. For each bit, the expression (neg >> i) & 1 is evaluated to extract the corresponding bit of the neg value. This value is stored in the out array.
+
+5. The loop also checks that each bit in the out array is either 0 or 1, by evaluating the expression out[i] * (out[i] - 1) === 0. This ensures that the output is a valid binary number.
+
+6. The loop computes the decimal value of the two's complement representation by accumulating the product of each bit in the out array with the corresponding power of 2, using the formula lc1 += out[i] * 2**i.
+
+7. The in signal is connected to the in input of the isZero component, which checks whether in is zero.
+
+8. The output of the isZero component, which is either 0 or 1, is added to the accumulated value lc1 multiplied by 2**n. This ensures that the final value is equal to 2**n - in if in is negative, or in if in is non-negative.
+
+9. In this case, since in is negative and equal to -42, the final output of the Num2BitsNeg circuit will be the two's complement binary representation of -42 using 8 bits, which is 11010110.
+
+## Two's complement representation
+
+Two's complement is a mathematical operation used to represent negative numbers in binary (base-2) form. In two's complement representation, the negative of an n-bit binary number is represented by the bitwise complement of the number (i.e., flipping all the bits) and adding 1.
+
+Here's an example of how to convert the decimal value -42 to its two's complement binary representation using 8 bits:
+
+1. Convert the absolute value of the decimal number (i.e., 42) to binary form:
+```
+42 = 00101010
+```
+2.Take the bitwise complement of the binary number (i.e., flip all the bits):
+```
+00101010
+--------  bitwise complement (flip all the bits)
+11010101
+```
+3. Add 1 to the bitwise complement:
+```
+11010101
++ 00000001
+---------
+11010110
+```
+
+
 
 
