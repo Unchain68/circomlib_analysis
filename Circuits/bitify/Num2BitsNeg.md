@@ -68,7 +68,7 @@ Here's an example of how to convert the decimal value -42 to its two's complemen
 ---------
 11010110
 ```
-
+Therefore, the two's complement representation of the decimal value -42 in 8 bits is 11010110. This is the binary representation that is used in many computer systems to represent negative numbers.
 
 
 
