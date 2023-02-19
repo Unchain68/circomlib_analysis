@@ -1,7 +1,6 @@
 # How does it work
 
-
-
+This code is a new pr for Num2BitNeg
 ```
 template Num2BitsNeg(n) {
     signal input in;
