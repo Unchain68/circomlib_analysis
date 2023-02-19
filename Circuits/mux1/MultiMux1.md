@@ -23,6 +23,13 @@ template MultiMux1(n) {
     }
 }
 ```
+## What is Multiplexer
+
+A multiplexer is a circuit that selects one output from multiple inputs. A binary selection signal is usually used to determine the selection.
+
+For example, when there are four inputs A, B, C, and D, a 4:1 multiplexer can be implemented using two selection signals, s0 and s1. You can select one output among the inputs using the value of the selection signal.
+
+A multiplexer selects one of several input signals and sends it to the output, which is used in various fields such as data selection or data transmission. For example, when collecting data from multiple sensors, you can select and process data from one input channel using a multiplexer.
 
 ## Why are you using a two-dimensional array?
 
