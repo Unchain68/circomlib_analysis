@@ -69,5 +69,8 @@ Here's an example of how to convert the decimal value -42 to its two's complemen
 ```
 Therefore, the two's complement representation of the decimal value -42 in 8 bits is 11010110. This is the binary representation that is used in many computer systems to represent negative numbers.
 
+## Why it should be changed?
 
+1. The condition n == 0 ? 0 : 2**n - in is not correct for computing the two's complement representation of in. It should be in < 0 ? 2**n + in : in instead, as I explained in a previous answer. This is because in two's complement representation, the most significant bit (i.e., the leftmost bit) is used to indicate the sign of the number, so we need to check if in is negative and compute the complement accordingly.
 
+2. The assertion out[i] * (out[i] - 1) === 0 is not necessary and does not contribute to the correctness of the code. This assertion checks that out[i] is either 0 or 1, which is always true because of the bitwise operation used to compute out[i]. Therefore, it can be removed without affecting the behavior of the code.
