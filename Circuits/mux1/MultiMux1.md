@@ -32,7 +32,7 @@ Therefore, c is defined as a two-dimensional array to handle multiple inputs. Us
 
 Two-dimensional arrays are useful for processing and storing multidimensional data in this way.
 
-## What is the difference between Mux1 and MultiMux1?
+## What is the difference between [Mux1](https://github.com/Unchain68/circomlib_analysis/blob/main/Circuits/mux1/Mux1.md) and MultiMux1?
 
 Mux1 is a code that implements a 2:1 multiplexer, and MultiMux1 is a code that implements an n:1 multiplexer. Mux1 implements a simple multiplexer that receives two constants as input and outputs one value according to the selection signal s, MultiMux1 implements a multiplexer that receives n constants as input and outputs n values ​​according to the selection signal s it did. The two codes have slightly different implementations because the number of input and output signals is different.
 
