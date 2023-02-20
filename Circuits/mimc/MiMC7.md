@@ -13,3 +13,36 @@ for 루프에서는 nrounds번 반복하며, t라는 변수에 k와 x_in의 값�
 즉, out은 nrounds번의 루프를 거쳐 MiMC7 알고리즘을 적용한 결과값입니다.
 
 이상입니다.
+```
+template MiMC7(nrounds) {
+    signal input x_in;
+    signal input k;
+    signal output out;
+
+    var c[91] = [
+        0,
+        20888961410941983456478427210666206549300505294776164667214940546594746570981,
+        ...
+        ...
+        13602139229813231349386885113156901793661719180900395818909719758150455500533
+    ];
+
+    var t;
+    signal t2[nrounds];
+    signal t4[nrounds];
+    signal t6[nrounds];
+    signal t7[nrounds-1];
+
+    for (var i=0; i<nrounds; i++) {
+        t = (i==0) ? k+x_in : k + t7[i-1] + c[i];
+        t2[i] <== t*t;
+        t4[i] <== t2[i]*t2[i];
+        t6[i] <== t4[i]*t2[i];
+        if (i<nrounds-1) {
+            t7[i] <== t6[i]*t;
+        } else {
+            out <== t6[i]*t + k;
+        }
+    }
+}
+```
